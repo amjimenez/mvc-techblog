@@ -1,0 +1,34 @@
+{
+  "name": "mvc-techblog",
+  "version": "1.0.0",
+  "description": "Model-View-Controller (MVC) Challenge: Tech Blog",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amjimenez/mvc-techblog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amjimenez/mvc-techblog/issues"
+  },
+  "homepage": "https://github.com/amjimenez/mvc-techblog#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "handlebars-dateformat": "^1.1.2",
+    "moment": "^2.29.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.0"
+  }
+}

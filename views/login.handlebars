@@ -1,0 +1,21 @@
+<div class="container container-max mt-5" style="max-width: 600px">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-6 mb-3">Login</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                {{#if session.err}}
+                    <p class="text-danger small">{{session.err}}</p>
+                {{/if}}
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

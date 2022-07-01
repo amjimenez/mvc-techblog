@@ -1,0 +1,39 @@
+<div class="container container-max">
+    <div class="row mb-5">
+        <div class="col">
+            <div class="card mt-5 text-bg-light">
+                <div class="card-header">
+                    Posted by <strong>{{comment.dataValues.user.dataValues.username}}</strong> on {{dateFormat comment.dataValues.updatedAt "LLL"}}
+                </div>
+                {{#ifCond @root.session.user.id '==' comment.dataValues.user.dataValues.id}}
+                    <div class="card-body">
+                        {{#if edit}}
+                        <form method="post" action="/comment/{{comment.dataValues.id}}">
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="comment" name="contents" rows="3">{{comment.dataValues.contents}}</textarea>
+                                </div>
+                                <input type="hidden" name="blog_id" value="{{comment.dataValues.blog_id}}">
+                                <input type="hidden" name="method" value="put">
+                                <button type="submit" class="btn btn-secondary btn-sm float-start">Save</button>
+                            </form>
+                        {{else}}
+                            <p class="card-text">{{comment.dataValues.contents}}</p>
+                            <a href="/comment/{{comment.dataValues.id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+                        {{/if}}
+                        <form method="post" action="/comment/{{comment.dataValues.id}}" class="float-end">
+                            <input type="hidden" name="blog_id" value="{{comment.dataValues.blog_id}}">
+                            <input type="hidden" name="method" value="delete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                {{else}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{comment.dataValues.title}}</h5>
+                        <p class="card-text">{{comment.dataValues.contents}}</p>
+                        <a href="/blog/{{comment.dataValues.blog_id}}" class="btn btn-secondary btn-sm">Back</a>
+                    </div>
+                {{/ifCond}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+{{#ifCond session.user.id '==' blog.dataValues.user.dataValues.id}}
+    {{#if edit}}
+        <div class="container container-max mt-5">
+            <div class="row mb-5">
+                <div class="col">
+                <h5>Blog Post</h5>
+                    <form method="post" action="/blog/{{blog.dataValues.id}}" class="mt-3">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{blog.dataValues.title}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contents" class="form-label">Contents</label>
+                            <textarea class="form-control" id="contents" name="contents" rows="10" required>{{blog.dataValues.contents}}</textarea>
+                        </div>
+                        <input type="hidden" name="user_id" value="{{session.user.id}}">
+                        <input type="hidden" name="method" value="put">
+                        <a href="/blog/{{blog.dataValues.id}}" class="btn btn-secondary btn-sm float-start me-1">Back To Blog</a>
+                        <button type="submit" class="btn btn-primary btn-sm float-start">Save</button>
+                    </form>
+                    <form method="post" action="/blog/{{blog.dataValues.id}}" class="float-end">
+                        <input type="hidden" name="method" value="delete">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class="container container-max mt-5">
+            <div class="row mb-5">
+                <div class="col">
+                    <h5>Blog Post</h5>
+                    <div class="card text-bg-light">
+                        <div class="card-header">
+                            Posted by <strong>{{blog.dataValues.user.dataValues.username}}</strong> on {{dateFormat blog.dataValues.updatedAt "LLL"}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{blog.dataValues.title}}</h5>
+                            <p class="card-text">{{blog.dataValues.contents}}</p>
+                        </div>
+                        {{#ifCond session.user.id '==' blog.dataValues.user.dataValues.id}}
+                            <div class="card-body">
+                                <a href="/blog/{{blog.dataValues.id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+                                <form method="post" action="/blog/{{blog.dataValues.id}}" class="float-end">
+                                    <input type="hidden" name="method" value="delete">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        {{/ifCond}}
+                    </div>
+                </div>
+            </div>
+            <h5>Comments</h5>
+            {{#each blog.dataValues.comments}}
+                <div class="row mb-2">
+                    <div class="col">
+                        <div class="card text-bg-light">
+                            <div class="card-header">
+                                Commented by <strong>{{this.dataValues.user.dataValues.username}}</strong> on {{dateFormat this.dataValues.updatedAt "LLL"}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{this.dataValues.contents}}</p>
+                            </div>
+                            {{#if @root.session.user}}
+                                {{#ifCond @root.session.user.id '==' this.dataValues.user.dataValues.id}}
+                                    <div class="card-body">
+                                        <a href="/comment/{{this.dataValues.id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+                                        <form method="post" action="/comment/{{this.dataValues.id}}" class="float-end">
+                                            <input type="hidden" name="blog_id" value="{{@root.blog.dataValues.id}}">
+                                            <input type="hidden" name="method" value="delete">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                {{/ifCond}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            {{#if session.user}}
+                <div class="row mt-5 pb-5">
+                    <h6>Add Comment</h6>
+                    <div class="col">
+                        <form method="post" action="/comment">
+                            <div class="mb-3">
+                                <textarea class="form-control" id="comment" name="contents" rows="3"></textarea>
+                            </div>
+                            <input type="hidden" name="blog_id" value="{{blog.dataValues.id}}">
+                            <input type="hidden" name="user_id" value="{{session.user.id}}">
+                            <button type="submit" class="btn btn-secondary btn-sm">Post</button>
+                        </form>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
+{{else}}
+    <div class="container container-max mt-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h5>Blog Post</h5>
+                <div class="card text-bg-light">
+                    <div class="card-header">
+                        Posted by <strong>{{blog.dataValues.user.dataValues.username}}</strong> on {{dateFormat blog.dataValues.updatedAt "LLL"}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{blog.dataValues.title}}</h5>
+                        <p class="card-text">{{blog.dataValues.contents}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5>Comments</h5>
+        {{#each blog.dataValues.comments}}
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card text-bg-light">
+                        <div class="card-header">
+                            Commented by <strong>{{this.dataValues.user.dataValues.username}}</strong> on {{dateFormat this.dataValues.updatedAt "LLL"}}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{this.dataValues.contents}}</p>
+                        </div>
+                        {{#if @root.session.user}}
+                            {{#ifCond @root.session.user.id '==' this.dataValues.user.dataValues.id}}
+                                <div class="card-body">
+                                    <a href="/comment/{{this.dataValues.id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+                                    <form method="post" action="/comment/{{this.dataValues.id}}" class="float-end">
+                                        <input type="hidden" name="blog_id" value="{{@root.blog.dataValues.id}}">
+                                        <input type="hidden" name="method" value="delete">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </div>
+                            {{/ifCond}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+        {{#if session.user}}
+            <div class="row mt-5 pb-5">
+                <h6>Add Comment</h6>
+                <div class="col">
+                    <form method="post" action="/comment">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="comment" name="contents" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" name="blog_id" value="{{blog.dataValues.id}}">
+                        <input type="hidden" name="user_id" value="{{session.user.id}}">
+                        <button type="submit" class="btn btn-secondary btn-sm">Post</button>
+                    </form>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+{{/ifCond}}

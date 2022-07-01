@@ -1,0 +1,28 @@
+<div class="container container-max mt-5">
+    <h1 class="display-1">Tech Blog Home</h1>
+    {{#each blogs}}
+    <div class="card mt-5 text-bg-light">
+        <div class="card-header">
+            Posted by <strong>{{this.dataValues.user.dataValues.username}}</strong> on {{dateFormat this.dataValues.createdAt "LLL"}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{this.dataValues.title}}</h5>
+            <p class="card-text">{{this.dataValues.contents}}</p>
+            {{#if @root.session.user}}
+                {{#ifCond @root.session.user.id '==' this.dataValues.user.dataValues.id}}
+                    <a href="/blog/{{this.dataValues.id}}" class="btn btn-secondary btn-sm">Read</a>
+                    <a href="/blog/{{this.dataValues.id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+                    <form method="post" action="/blog/{{this.dataValues.id}}" class="float-end">
+                        <input type="hidden" name="method" value="delete">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                {{else}}
+                    <a href="/blog/{{this.dataValues.id}}" class="btn btn-secondary btn-sm">Read</a>
+                {{/ifCond}}
+            {{else}}
+                <a href="/blog/{{this.dataValues.id}}" class="btn btn-secondary btn-sm">Read</a>
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+</div>

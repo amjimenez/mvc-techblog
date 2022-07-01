@@ -1,0 +1,19 @@
+<div class="container container-max">
+    <div class="row mt-5">
+        <div class="col">
+            <h1>New Blog Post</h1>
+            <form method="post" action="/blog" class="mt-3">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="contents" class="form-label">Contents</label>
+                    <textarea class="form-control" id="contents" name="contents" rows="10" required></textarea>
+                </div>
+                <input type="hidden" name="user_id" value="{{session.user.id}}">
+                <button type="submit" class="btn btn-secondary btn-sm">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
