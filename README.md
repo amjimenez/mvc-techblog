@@ -60,5 +60,5 @@ https://github.com/amjimenez/mvc-techblog
 
 A link to the deployed [app](https://module-mvc-techblog.herokuapp.com)
 ```
-[https://dashboard.heroku.com/apps/module-mvc-techblog](https://module-mvc-techblog.herokuapp.com)
+(https://module-mvc-techblog.herokuapp.com)
 ```
