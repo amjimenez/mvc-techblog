@@ -58,7 +58,7 @@ A link to the Github [code](https://github.com/amjimenez/mvc-techblog):
 https://github.com/amjimenez/mvc-techblog
 ```
 
-A link to the deployed [app]([https://dashboard.heroku.com/apps/module-mvc-techblog](https://module-mvc-techblog.herokuapp.com)):
+A link to the deployed [app](https://dashboard.heroku.com/apps/module-mvc-techblog)
 ```
 [https://dashboard.heroku.com/apps/module-mvc-techblog](https://module-mvc-techblog.herokuapp.com)
 ```
